@@ -13,8 +13,10 @@ class StartPage extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('media/img/start_car.jpg'),
+                image: AssetImage('media/img/g.jpg'),
+                colorFilter: ColorFilter.mode(Colors.black45, BlendMode.darken),
                 fit: BoxFit.cover)),
+                
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(3.0),
@@ -23,12 +25,12 @@ class StartPage extends StatelessWidget {
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 25.0, top: 20),
+                      padding: const EdgeInsets.only(left: 25.0, top: 30),
                       child: Text(
                         'The Mechanic',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 35,
+                            fontSize: 40,
                             color: Colors.amberAccent),
                       ),
                     ),
@@ -42,7 +44,7 @@ class StartPage extends StatelessWidget {
                       child: Text(
                         'connects you to the nearest \n autoshop that fixes your \n vehicle in the most \n convinient way',
                         textAlign: TextAlign.end,
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                        style: TextStyle(color: Colors.white, fontSize: 25),
                       ),
                     ),
                   ],

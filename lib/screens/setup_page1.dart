@@ -2,6 +2,7 @@ import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:squircle/squircle.dart';
+import 'package:the_mechanic/login_page.dart';
 import 'package:the_mechanic/screens/company_sign_up.dart';
 import 'package:the_mechanic/screens/driver_sign_up.dart';
 
@@ -91,10 +92,12 @@ class LoginPage1 extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.35,
             ),
-            Text(
-              'Log In',
-              style: TextStyle(fontSize: 22, color: Colors.amberAccent),
-            )
+            TextButton(onPressed: () {
+                Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (context) => Login()));
+            }, child: Text('Login',style: TextStyle(color: Colors.amberAccent,fontSize: 30),))
           ],
         ),
       ),
