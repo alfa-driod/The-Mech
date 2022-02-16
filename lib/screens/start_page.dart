@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:squircle/squircle.dart';
+import 'package:the_mechanic/screens/setup.dart';
 import 'package:the_mechanic/screens/setup_page1.dart';
 
 class StartPage extends StatelessWidget {
@@ -55,7 +56,7 @@ class StartPage extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginPage1()));
+                        MaterialPageRoute(builder: (context) => setup()));
                   },
                   child: Card(
                     shape: SquircleBorder(superRadius: 900),
