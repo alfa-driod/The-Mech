@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'The Mechanic',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
