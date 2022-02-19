@@ -3,15 +3,16 @@ import 'package:iconsax/iconsax.dart';
 import 'package:squircle/squircle.dart';
 import 'package:the_mechanic/form_field.dart';
 import 'package:the_mechanic/user.dart';
+import 'driver_sign_up.dart';
 
-class CompanyRegister extends StatefulWidget {
-  const CompanyRegister({Key? key}) : super(key: key);
+class login extends StatefulWidget {
+  const login({Key? key}) : super(key: key);
 
   @override
-  State<CompanyRegister> createState() => _CompanyRegisterState();
+  State<login> createState() => _loginState();
 }
 
-class _CompanyRegisterState extends State<CompanyRegister> {
+class _loginState extends State<login> {
  final _formKey = GlobalKey<FormState>();
     User user = User('', '');
 
@@ -122,41 +123,7 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                   ),
                 ),
               ),
-               Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: TextFormField(
-                  
-                  controller: TextEditingController(text: user.password),
-                  onChanged: (value) {
-                    user.password = value;
-                  },
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Enter your Company name';
-                    } else {
-                      return null;
-                    }
-                  },
-                  decoration: InputDecoration(
-                   
-                    fillColor: Colors.white,
-                    filled: true,
-                    hintText: 'Company Name',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
-                        borderSide: BorderSide(color: Colors.blue)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
-                        borderSide: BorderSide(color: Colors.blue)),
-                    errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
-                        borderSide: BorderSide(color: Colors.red)),
-                    focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
-                        borderSide: BorderSide(color: Colors.red)),
-                  ),
-                ),
-              ),
+              
               Padding(
                 padding: EdgeInsets.all(20.0),
                 child: Container(
@@ -184,11 +151,14 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                 padding: const EdgeInsets.fromLTRB(65, 10, 0, 0),
                 child: Row(
                   children: [
-                    Text('Already have an Account?',
+                    Text('Do not have an Account?',
                         style: TextStyle(color: Colors.white)),
                     TextButton(
-                        onPressed: () {},
-                        child: Text('Login', style: TextStyle(fontSize: 30)))
+                        onPressed: () {
+                            Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => DriverSignUp()));
+                        },
+                        child: Text('Sign up', style: TextStyle(fontSize: 30)))
                   ],
                 ),
               )

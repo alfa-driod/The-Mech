@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:squircle/squircle.dart';
 import 'package:the_mechanic/form_field.dart';
+import 'package:the_mechanic/screens/driver_log_in.dart';
 import 'package:the_mechanic/user.dart';
 
 class DriverSignUp extends StatefulWidget {
@@ -23,7 +24,9 @@ class _DriverSignUpState extends State<DriverSignUp> {
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: IconButton(
+         color: Colors.black,
           icon: Icon(
+           
             Iconsax.arrow_circle_left5,
           ),
           onPressed: () {
@@ -31,25 +34,22 @@ class _DriverSignUpState extends State<DriverSignUp> {
           },
         ),
       ),
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('media/img/login_car.jpg'),
-                colorFilter: ColorFilter.mode(Colors.black45, BlendMode.darken),
-                fit: BoxFit.cover)),
-        child: Container(
-          alignment: Alignment.center,
+      body:  Container(
+          // alignment: Alignment.center,
           child: Form(
             key: _formKey,
             child: ListView(
               children: [
-                SizedBox(
-                  height: 170,
-                ),
+                
+                Container(
+                  height: 220,
+                  width: 300,
+                  child: Image.asset('media/img/logo.png')),
+                // SizedBox(
+                //   height: 170,
+                // ),
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: TextFormField(
                     controller: TextEditingController(text: user.email),
                     onChanged: (value) {
@@ -159,7 +159,7 @@ class _DriverSignUpState extends State<DriverSignUp> {
                     child: TextButton(
                         style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(Colors.blue),
+                                MaterialStateProperty.all(Colors.black),
                             shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15)))),
@@ -180,10 +180,15 @@ class _DriverSignUpState extends State<DriverSignUp> {
                   child: Row(
                     children: [
                       Text('Already have an Account?',
-                          style: TextStyle(color: Colors.white)),
+                          style: TextStyle(color: Colors.black)),
                       TextButton(
-                          onPressed: () {},
-                          child: Text('Login', style: TextStyle(fontSize: 30))),
+                    
+                          onPressed: ()
+                           {
+                               Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => login()));
+                           },
+                          child: Text('Login', style: TextStyle(fontSize: 25,))),
                     ],
                   ),
                 ),
@@ -213,7 +218,7 @@ class _DriverSignUpState extends State<DriverSignUp> {
             ),
           ),
         ),
-      ),
+      
     );
   }
 }

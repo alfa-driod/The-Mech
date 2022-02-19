@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:squircle/squircle.dart';
 import 'package:the_mechanic/screens/setup.dart';
-import 'package:the_mechanic/screens/setup_page1.dart';
 
-class StartPage extends StatelessWidget {
+
+class StartPage extends StatefulWidget {
   const StartPage({Key? key}) : super(key: key);
 
+  @override
+  State<StartPage> createState() => _StartPageState();
+}
+
+class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         height: double.infinity,
         width: double.infinity,
+        
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('media/img/g.jpg'),
                 colorFilter: ColorFilter.mode(Colors.black45, BlendMode.darken),
                 fit: BoxFit.cover)),
-                
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(3.0),
@@ -25,6 +30,7 @@ class StartPage extends StatelessWidget {
               children: [
                 Row(
                   children: [
+                   
                     Padding(
                       padding: const EdgeInsets.only(left: 25.0, top: 30),
                       child: Text(
