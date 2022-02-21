@@ -1,4 +1,5 @@
 import 'package:bootstrap_icons/bootstrap_icons.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:squircle/squircle.dart';
@@ -15,7 +16,12 @@ class DriverSignUp extends StatefulWidget {
 
 class _DriverSignUpState extends State<DriverSignUp> {
   final _formKey = GlobalKey<FormState>();
-  User user = User('', '');
+  TextEditingController emailTextController = TextEditingController();
+  TextEditingController passwordTextController = TextEditingController();
+  TextEditingController usernameTextController = TextEditingController();
+  String email = '';
+  String password = '';
+  String name = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,9 +57,9 @@ class _DriverSignUpState extends State<DriverSignUp> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: TextFormField(
-                    controller: TextEditingController(text: user.email),
+                    controller: emailTextController,
                     onChanged: (value) {
-                      user.email = value;
+                      email = value;
                     },
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -88,9 +94,9 @@ class _DriverSignUpState extends State<DriverSignUp> {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: TextFormField(
-                    controller: TextEditingController(text: user.password),
+                    controller: passwordTextController,
                     onChanged: (value) {
-                      user.password = value;
+                     password = value;
                     },
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -121,13 +127,13 @@ class _DriverSignUpState extends State<DriverSignUp> {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: TextFormField(
-                    controller: TextEditingController(text: user.password),
+                    controller: usernameTextController,
                     onChanged: (value) {
-                      user.password = value;
+                      name = value;
                     },
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Enter your Company name';
+                        return 'Enter your Username ';
                       } else {
                         return null;
                       }
@@ -165,7 +171,10 @@ class _DriverSignUpState extends State<DriverSignUp> {
                                     borderRadius: BorderRadius.circular(15)))),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            print('ok');
+                           FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                                  email: email, password: password)
+                              .then((value) => print('sucess'));
                           } else {
                             print('not ok');
                           }

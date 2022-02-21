@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:squircle/squircle.dart';
+import 'package:the_mechanic/screens/driver_log_in.dart';
 import 'package:the_mechanic/screens/driver_sign_up.dart';
 
 class setup extends StatefulWidget {
@@ -45,6 +46,7 @@ class _setupState extends State<setup> {
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: IconButton(
+          color: Colors.black,
           icon: Icon(
             Iconsax.arrow_circle_left5,
           ),
@@ -53,7 +55,10 @@ class _setupState extends State<setup> {
           },
         ),
         actions: [
-        TextButton(onPressed: (){}, child: Text('Login',style:TextStyle(fontSize: 20) ,))
+        TextButton(onPressed: (){
+           Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => login()));
+        }, child: Text('Login',style:TextStyle(fontSize: 20) ,))
         ],
       ),
      
@@ -134,41 +139,30 @@ class _setupState extends State<setup> {
                                 height: 300,
                                 width: 300,
                               )),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20.0),
-                                child: Text(
-                                  'CONNECT with',
-                                  style: TextStyle(
-                                      color: Colors.yellow[200],
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 5, left: 20),
-                                child: Text(
-                                  'Mechanics Around You',
-                                  style: TextStyle(
-                                      color: Colors.yellow[200],
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                              Divider(
-                                color: Colors.blue[100],
+                             
+                               Divider(
+                                color: Colors.grey,
                                 height: 30,
                               ),
+                            
+                             
+                             
                               Padding(
                                 padding: const EdgeInsets.only(top: 5, left: 20),
-                                child: Text(
-                                  'paaansbapshkaka\nisoappsmmklkskkkkkwhshkapa\nisjaksonnnnjsuwqosjnn',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
+                                child: Center(
+                                  child: Text(
+                                    'Schedule Your Appointment',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold
+                                       ),
+                                  ),
                                 ),
                               ),
+                              SizedBox(height: 10,),
+                              Text('Have an Appointment with your Mechanic to get\n                             your Vehicle fixed',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+                            
                             ],
                           ),
                           Column(
@@ -180,41 +174,28 @@ class _setupState extends State<setup> {
                                 height: 300,
                                 width: 300,
                               )),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20.0),
-                                child: Text(
-                                  'CONNECT with',
-                                  style: TextStyle(
-                                      color: Colors.yellow[200],
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 5, left: 20),
-                                child: Text(
-                                  'Mechanics Around You',
-                                  style: TextStyle(
-                                      color: Colors.yellow[200],
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
+                            
+                             
                               Divider(
-                                color: Colors.blue[100],
+                                color: Colors.grey,
                                 height: 30,
                               ),
+                            
+                              
                               Padding(
-                                padding: const EdgeInsets.only(top: 5, left: 20),
-                                child: Text(
-                                  'paaansbapshkaka\nisoappsmmklkskkkkkwhshkapa\nisjaksonnnnjsuwqosjnn',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
+                                padding: const EdgeInsets.only(top: 10, left: 20),
+                                child: Center(
+                                  child: Text(
+                                    'Get Your Vehicle Towed',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold
+                                       ),
+                                  ),
                                 ),
                               ),
+                              Text('A feature for you to get a towing car to tow your\n                              damaged vehicle',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),)
                             ],
                           ),
                         ],

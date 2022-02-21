@@ -38,6 +38,9 @@ dependencies:
   squircle: ^0.0.2
   iconsax: ^0.0.8
   bootstrap_icons: ^1.7.2
+  firebase_core: ^1.12.0
+  firebase_auth: ^3.3.7
+  flutterfire_ui: ^0.3.4
 
 dev_dependencies:
   flutter_test:

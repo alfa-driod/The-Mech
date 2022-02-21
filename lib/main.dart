@@ -1,21 +1,40 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:the_mechanic/screens/setup.dart';
+import 'package:the_mechanic/screens/splash_screen.dart';
 import 'package:the_mechanic/screens/start_page.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  runApp(  DevicePreview(
-    enabled: true,
-    builder: (context) => MyApp(), // Wrap your app
-  ),);
+
+
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+     apiKey: "AIzaSyBIefb8ZprgeyQUFiqF_85wJEfSOAUNxjE",
+  authDomain: "the-mechanic-47aec.firebaseapp.com",
+  projectId: "the-mechanic-47aec",
+  storageBucket: "the-mechanic-47aec.appspot.com",
+  messagingSenderId: "700419981635",
+  appId: "1:700419981635:web:6e3fd5110e22f1b0766ff6"
+    ),
+  );
+  runApp(
+    DevicePreview(
+      enabled: true,
+      builder: (context) => MyApp(), // Wrap your app
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     return MaterialApp(
-       useInheritedMediaQuery: true,
+      useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
@@ -23,7 +42,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const StartPage(),
+      home: const splash(),
     );
-  } 
+  }
 }

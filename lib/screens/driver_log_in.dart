@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:squircle/squircle.dart';
@@ -13,19 +14,21 @@ class login extends StatefulWidget {
 }
 
 class _loginState extends State<login> {
- final _formKey = GlobalKey<FormState>();
-    User user = User('', '');
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController emailTextController = TextEditingController();
+  TextEditingController passwordTextController = TextEditingController();
+  String email = '';
+  String password = '';
 
   @override
   Widget build(BuildContext context) {
-   
- 
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: IconButton(
+          color: Colors.black,
           icon: Icon(
             Iconsax.arrow_circle_left5,
           ),
@@ -34,30 +37,20 @@ class _loginState extends State<login> {
           },
         ),
       ),
-        body: Container(
-      height: double.infinity,
-      width: double.infinity,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('media/img/e.jpg'),
-              colorFilter: ColorFilter.mode(Colors.black45, BlendMode.darken),
-              fit: BoxFit.cover)),
-      child: Container(
-        alignment: Alignment.center,
+      body: Container(
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
-              SizedBox(
-                height: 170,
-              ),
+              Container(
+                  height: 220,
+                  width: 300,
+                  child: Image.asset('media/img/logo.png')),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
-                  controller: TextEditingController(text: user.email),
-                  onChanged: (value) {
-                    user.email = value;
-                  },
+                  controller: emailTextController,
+                  onChanged: (input) => email = input,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Enter Email';
@@ -91,11 +84,8 @@ class _loginState extends State<login> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
-                  
-                  controller: TextEditingController(text: user.password),
-                  onChanged: (value) {
-                    user.password = value;
-                  },
+                  controller: passwordTextController,
+                  onChanged: (input) => password = input,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Enter passwod';
@@ -104,7 +94,6 @@ class _loginState extends State<login> {
                     }
                   },
                   decoration: InputDecoration(
-                   
                     fillColor: Colors.white,
                     filled: true,
                     hintText: 'Enter password',
@@ -123,7 +112,6 @@ class _loginState extends State<login> {
                   ),
                 ),
               ),
-              
               Padding(
                 padding: EdgeInsets.all(20.0),
                 child: Container(
@@ -132,19 +120,15 @@ class _loginState extends State<login> {
                   child: TextButton(
                       style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all(Colors.blue),
+                              MaterialStateProperty.all(Colors.black),
                           shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15)))),
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          print('ok');
-                        } else {
-                          print('not ok');
-                        }
+                        if (_formKey.currentState!.validate()) {}
                       },
-                      child: Text('sign up',
-                          style: TextStyle(color: Colors.white,fontSize: 30))),
+                      child: Text('Login',
+                          style: TextStyle(color: Colors.white, fontSize: 20))),
                 ),
               ),
               Padding(
@@ -152,13 +136,17 @@ class _loginState extends State<login> {
                 child: Row(
                   children: [
                     Text('Do not have an Account?',
-                        style: TextStyle(color: Colors.white)),
+                        style: TextStyle(color: Colors.black)),
                     TextButton(
                         onPressed: () {
-                            Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => DriverSignUp()));
+                         
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DriverSignUp()));
                         },
-                        child: Text('Sign up', style: TextStyle(fontSize: 30)))
+                        child: Text('Sign up', style: TextStyle(fontSize: 25)))
                   ],
                 ),
               )
@@ -166,6 +154,6 @@ class _loginState extends State<login> {
           ),
         ),
       ),
-    ));
+    );
   }
 }
