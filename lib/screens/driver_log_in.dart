@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:squircle/squircle.dart';
 import 'package:the_mechanic/form_field.dart';
+import 'package:the_mechanic/screens/Homepage.dart';
 import 'package:the_mechanic/user.dart';
 import 'driver_sign_up.dart';
 
@@ -126,6 +127,10 @@ class _loginState extends State<login> {
                                   borderRadius: BorderRadius.circular(15)))),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {}
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Hompege()));
                       },
                       child: Text('Login',
                           style: TextStyle(color: Colors.white, fontSize: 20))),
