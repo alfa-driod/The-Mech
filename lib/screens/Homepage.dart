@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
+import 'package:the_mechanic/screens/user_profile.dart';
+import 'package:the_mechanic/services.dart';
+import 'package:flutter/services.dart';
 class Hompege extends StatefulWidget {
   const Hompege({Key? key}) : super(key: key);
 
@@ -56,7 +59,7 @@ class _HompegeState extends State<Hompege> {
             child:Container(
               height: 245,
               decoration: BoxDecoration(
-                color: Colors.black,
+                color: Colors.blueGrey,
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(18),topRight: Radius.circular(18)),
                 boxShadow: [
                  BoxShadow(
@@ -71,22 +74,29 @@ class _HompegeState extends State<Hompege> {
                 children: [
                   SizedBox(height: 6,),
                   Text('Available Autoshops',style: TextStyle(color: Colors.white,fontSize: 20),),
+                  
                   Padding(
                     padding: const EdgeInsets.only(top:20.0,left: 20.0,right: 8),
                     child: Row(
                       children: [
-                        Container(
-                          height: 150,
-                          width: 150,
-                          
-                          decoration: BoxDecoration(
-                            image:DecorationImage(image: 
-                            AssetImage('media/img/es.png'),
-                             fit: BoxFit.cover
-                            ),
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15)
+                        InkWell(
+                          onTap:(){
+                              Navigator.push(context,
+                        MaterialPageRoute(builder: (context) =>UserProfile()));
+                          } ,
+                          child: Container(
+                            height: 150,
+                            width:  MediaQuery.of(context).size.width,
                             
+                            decoration: BoxDecoration(
+                              image:DecorationImage(image: 
+                              AssetImage('media/img/es.png'),
+                               fit: BoxFit.cover
+                              ),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15)
+                              
+                            ),
                           ),
                         ),
                         

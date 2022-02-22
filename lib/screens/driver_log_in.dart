@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:squircle/squircle.dart';
 import 'package:the_mechanic/form_field.dart';
 import 'package:the_mechanic/screens/Homepage.dart';
+import 'package:the_mechanic/screens/navi.dart';
 import 'package:the_mechanic/user.dart';
 import 'driver_sign_up.dart';
 
@@ -130,7 +131,7 @@ class _loginState extends State<login> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Hompege()));
+                                  builder: (context) => Navi()));
                       },
                       child: Text('Login',
                           style: TextStyle(color: Colors.white, fontSize: 20))),

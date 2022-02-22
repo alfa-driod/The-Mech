@@ -5,6 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:squircle/squircle.dart';
 import 'package:the_mechanic/form_field.dart';
 import 'package:the_mechanic/screens/driver_log_in.dart';
+import 'package:the_mechanic/screens/user_profile.dart';
 import 'package:the_mechanic/user.dart';
 
 class DriverSignUp extends StatefulWidget {
@@ -178,6 +179,8 @@ class _DriverSignUpState extends State<DriverSignUp> {
                           } else {
                             print('not ok');
                           }
+                          Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => UserProfile()));
                         },
                         child: Text('sign up',
                             style:
