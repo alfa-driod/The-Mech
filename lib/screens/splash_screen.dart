@@ -17,9 +17,9 @@ class _splashState extends State<splash> {
     // TODO: implement initState
     super.initState();
    
-    Timer(Duration(seconds: 5), () {
+    Timer(Duration(seconds: 3), () {
       Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => StartPage()));
+          .pushReplacement(MaterialPageRoute(builder: (_) => setup()));
     });
   }
 
@@ -36,6 +36,7 @@ class _splashState extends State<splash> {
               width: 200,
               child: Image.asset('media/img/logo.png')),
           ),
+          Text('The Mechanic',style: TextStyle(fontSize: 30,),),
           SizedBox(height: 20),
           CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation(Colors.black),

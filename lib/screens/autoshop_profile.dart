@@ -22,7 +22,9 @@ class _AutoshopProfileState extends State<AutoshopProfile> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             icon: Icon(
               CupertinoIcons.arrow_left_circle_fill,
             ),

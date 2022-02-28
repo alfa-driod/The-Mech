@@ -67,7 +67,7 @@ class _setupState extends State<setup> {
       child:  ListView(
         children: [
           Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.only(right: 20,left: 20,),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -107,7 +107,7 @@ class _setupState extends State<setup> {
                               )),
                               Divider(
                                 color: Colors.grey,
-                                height: 30,
+                               
                               ),
                             
                               // SizedBox(
@@ -142,7 +142,7 @@ class _setupState extends State<setup> {
                              
                                Divider(
                                 color: Colors.grey,
-                                height: 30,
+                                
                               ),
                             
                              
@@ -178,7 +178,7 @@ class _setupState extends State<setup> {
                              
                               Divider(
                                 color: Colors.grey,
-                                height: 30,
+                             
                               ),
                             
                               

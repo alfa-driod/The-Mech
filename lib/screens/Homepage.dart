@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:the_mechanic/screens/autoshop_profile.dart';
 import 'package:the_mechanic/screens/user_profile.dart';
 import 'package:the_mechanic/services.dart';
 import 'package:flutter/services.dart';
@@ -38,7 +39,118 @@ class _HompegeState extends State<Hompege> {
             ),
       ),
       drawer: Drawer(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
+        child: ListView(
+          children: [
+            Column(
+             
+              children: [
+                 SizedBox(height: 20,),
+                CircleAvatar(
+                  backgroundColor:Colors.white,
+                  radius: 50,
+                  child: Icon(Icons.person,size: 50,),
+                ),
+                SizedBox(height: 10,),
+              Text('Prince Obeng Nkoah',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600,color: Colors.white),),
+              TextButton(onPressed: (){}, child:Text('Edit profile')),
+              
+              ],
+            ),
+            Divider(color: Colors.grey,),
+           Padding(
+             padding: const EdgeInsets.only(top:8.0,left:8),
+             child: InkWell(
+               onTap: () {
+                 
+               },
+               child: Row(
+                 children: [
+                   Icon(Icons.add,color: Colors.white),
+                   Padding(
+                     padding: const EdgeInsets.only(left:20.0),
+                     child: Text('Add Car',style: TextStyle(fontSize: 20,color: Colors.white),),
+                   )
+                 ],
+               ),
+             ),
+           ),
+            Divider(color: Colors.grey,),
+           Padding(
+             padding: const EdgeInsets.only(top:8.0,left:8),
+             child: InkWell(
+               onTap: () {
+                 
+               },
+               child: Row(
+                 children: [
+                   Icon(Icons.lock,color: Colors.grey),
+                   Padding(
+                     padding: const EdgeInsets.only(left:20.0),
+                     child: Text('Privacy Policy',style: TextStyle(fontSize: 20,color: Colors.white),),
+                   )
+                 ],
+               ),
+             ),
+           ),
+            Divider(color: Colors.grey,),
+           Padding(
+             padding: const EdgeInsets.only(top:8.0,left:8),
+             child: InkWell(
+               onTap: () {
+                 
+               },
+               child: Row(
+                 children: [
+                   Icon(Icons.question_answer,color: Colors.blueGrey),
+                   Padding(
+                     padding: const EdgeInsets.only(left:20.0),
+                     child: Text('FAQ',style: TextStyle(fontSize: 20,color: Colors.white),),
+                   )
+                 ],
+               ),
+             ),
+           ),
+            Divider(color: Colors.grey,),
+           Padding(
+             padding: const EdgeInsets.only(top:8.0,left:8),
+             child: InkWell(
+               onTap: () {
+                 
+               },
+               child: Row(
+                 children: [
+                   Icon(Icons.call,color: Colors.grey),
+                   Padding(
+                     padding: const EdgeInsets.only(left:20.0),
+                     child: Text('Contact Us',style: TextStyle(fontSize: 20,color: Colors.white),),
+                   )
+                 ],
+               ),
+             ),
+           ),
+            Divider(color: Colors.grey,),
+           Padding(
+             padding: const EdgeInsets.only(top:200.0,left:170),
+             child: InkWell(
+               onTap: () {
+                 
+               },
+               child: Row(
+                 children: [
+                   Icon(Icons.logout,color: Colors.blueGrey),
+                   Padding(
+                     padding: const EdgeInsets.only(left:20.0),
+                     child: Text('Logout',style: TextStyle(fontSize: 20,color: Colors.white),),
+                   )
+                 ],
+               ),
+             ),
+           ),
+            
+           
+          ],
+        ),
       ),
       body: Stack(
         children: [
@@ -59,7 +171,7 @@ class _HompegeState extends State<Hompege> {
             child:Container(
               height: 245,
               decoration: BoxDecoration(
-                color: Colors.blueGrey,
+                color: Colors.black,
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(18),topRight: Radius.circular(18)),
                 boxShadow: [
                  BoxShadow(
@@ -82,11 +194,11 @@ class _HompegeState extends State<Hompege> {
                         InkWell(
                           onTap:(){
                               Navigator.push(context,
-                        MaterialPageRoute(builder: (context) =>UserProfile()));
+                        MaterialPageRoute(builder: (context) =>AutoshopProfile()));
                           } ,
                           child: Container(
                             height: 150,
-                            width:  MediaQuery.of(context).size.width,
+                            width:  150,
                             
                             decoration: BoxDecoration(
                               image:DecorationImage(image: 
