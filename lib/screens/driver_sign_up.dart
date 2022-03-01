@@ -228,7 +228,7 @@ class _DriverSignUpState extends State<DriverSignUp> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return Mydialog(message: "Signing User ........");
+          return Mydialog(message: "Signing in ");
         });
     final User? firebaseUser = (await _firebaseAuth
             .createUserWithEmailAndPassword(
