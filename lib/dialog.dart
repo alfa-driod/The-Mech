@@ -10,10 +10,12 @@ class Mydialog extends StatelessWidget {
     return AlertDialog(
       backgroundColor: Colors.white,
       content: Container(
-        margin: EdgeInsets.all(15),
+        margin: EdgeInsets.all(10),
         width: double.infinity,
         decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(20.0)),
+         
+            color: Colors.white, borderRadius: BorderRadius.circular(20.0))
+            ,
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Row(
@@ -22,7 +24,7 @@ class Mydialog extends StatelessWidget {
                 width: 6,
               ),
               CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
               ),
               SizedBox(
                 width: 25,

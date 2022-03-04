@@ -26,21 +26,17 @@ class _splashState extends State<splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: Container(
-              height: 200,
-              width: 200,
-              child: Image.asset('media/img/logo.png')),
+            child: Image.asset('media/img/Group 3.png',height: 500,),
           ),
-          Text('The Mechanic',style: TextStyle(fontSize: 30,),),
-          SizedBox(height: 20),
-          CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation(Colors.black),
-          )
+       
+          // CircularProgressIndicator(
+          //   valueColor: AlwaysStoppedAnimation(Colors.amber),
+          // )
         ],
       ),
     );

@@ -14,11 +14,16 @@ class Mechanic extends StatelessWidget {
     }
     final value = prices.reduce((value, element) => element + value);
     return DefaultTabController(
+        
         length: 2,
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.black,
-            bottom: TabBar(tabs: [
+            bottom: TabBar(
+              labelColor: Colors.amberAccent,
+              unselectedLabelColor: Colors.grey,
+              
+              tabs: [
               Tab(
                 text: 'Auto-Parts',
               ),

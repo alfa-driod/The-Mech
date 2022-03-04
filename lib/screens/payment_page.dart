@@ -11,7 +11,9 @@ class PaymentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
         appBar: AppBar(
+          backgroundColor: Colors.black,
           elevation: 0,
           leading: Padding(
               padding: const EdgeInsets.only(left: 15),
@@ -38,6 +40,7 @@ class PaymentPage extends StatelessWidget {
               child: Text('Payment Method',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
+                    color: Colors.white,
                     fontSize: 30,
                   )),
             ),
@@ -51,8 +54,8 @@ class PaymentPage extends StatelessWidget {
                   child: Icon(SimpleIcons.mastercard),
                 ),
               ),
-              title: Text('MasterCard'),
-              subtitle: Text('**** **** 4199'),
+              title: Text('MasterCard',style: TextStyle(color: Colors.white),),
+              subtitle: Text('**** **** 4199',style: TextStyle(color: Colors.white)),
               trailing: IconButton(
                 color: Colors.white,
                 icon: Icon(
@@ -71,8 +74,8 @@ class PaymentPage extends StatelessWidget {
                   child: Icon(SimpleIcons.visa),
                 ),
               ),
-              title: Text('Visa Card'),
-              subtitle: Text('**** **** 4199'),
+              title: Text('Visa Card',style: TextStyle(color: Colors.white)),
+              subtitle: Text('**** **** 4199',style: TextStyle(color: Colors.white)),
               trailing: IconButton(
                 color: Colors.white,
                 icon: Icon(
@@ -81,31 +84,7 @@ class PaymentPage extends StatelessWidget {
                 onPressed: () {},
               ),
             ),
-            ListTile(
-              leading: Material(
-                color: Color.fromRGBO(242, 201, 48, 1),
-                shape: SquircleBorder(superRadius: 10),
-                child: Card(
-                  color: Colors.amber,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(22),
-                    child: Image.asset(
-                      'img/mtn.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-              title: Text('MTN Mobile Money'),
-              subtitle: Text('**** **** 4199'),
-              trailing: IconButton(
-                icon: Icon(
-                  Icons.radio_button_checked,
-                  color: Colors.white,
-                ),
-                onPressed: () {},
-              ),
-            ),
+           
             ListTile(
               leading: Card(
                 shape: SquircleBorder(superRadius: 10),
@@ -118,8 +97,8 @@ class PaymentPage extends StatelessWidget {
                   ),
                 ),
               ),
-              title: Text('Apple Pay'),
-              subtitle: Text('**** **** 4199'),
+              title: Text('Apple Pay',style: TextStyle(color: Colors.white)),
+              subtitle: Text('**** **** 4199',style: TextStyle(color: Colors.white)),
               trailing: IconButton(
                 color: Colors.white,
                 icon: Icon(

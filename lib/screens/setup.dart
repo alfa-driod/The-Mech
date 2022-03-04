@@ -31,8 +31,8 @@ class _setupState extends State<setup> {
       height: 8,
       width: isActive ? 24:16,
       decoration:BoxDecoration(
-        color: isActive?Colors.green:Colors.grey,
-        borderRadius: BorderRadius.all(Radius.circular(12))
+        color: isActive?Colors.blue:Colors.grey,
+        borderRadius: BorderRadius.all(Radius.circular(20))
       )
     );
 
@@ -41,19 +41,12 @@ class _setupState extends State<setup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor:Colors.black,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        leading: IconButton(
-          color: Colors.black,
-          icon: Icon(
-            Iconsax.arrow_circle_left5,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+      
         actions: [
         TextButton(onPressed: (){
            Navigator.push(context,
@@ -69,7 +62,7 @@ class _setupState extends State<setup> {
           Padding(
               padding: const EdgeInsets.only(right: 20,left: 20,),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                // crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
           //         Container(
           //           alignment: Alignment.centerLeft,
@@ -85,7 +78,7 @@ class _setupState extends State<setup> {
           //         ),
                  
                   Container(
-                      height: 600,
+                      height: 500,
                       width: double.infinity,
                       child: PageView(
                         physics: ClampingScrollPhysics(),
@@ -113,21 +106,21 @@ class _setupState extends State<setup> {
                               // SizedBox(
                               //   height: 20,
                               // ),
+                              Center(
+                                child: Column(children: [Text(
+                                      'Mechanics Around You',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold
+                                         ),
+                                    ),
+                                 
                              
-                              Padding(
-                                padding: const EdgeInsets.only(top: 5, left: 20),
-                                child: Center(
-                                  child: Text(
-                                    'Mechanics Around You',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold
-                                       ),
-                                  ),
-                                ),
-                              ),
-                              Text('Search for the best mechanics in your location',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),)
+                             
+                                Text('Search for the best mechanics in your location',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.white),)],),
+                              )
+                               
                             ],
                           ),
                           Column(
@@ -147,22 +140,20 @@ class _setupState extends State<setup> {
                             
                              
                              
-                              Padding(
-                                padding: const EdgeInsets.only(top: 5, left: 20),
-                                child: Center(
-                                  child: Text(
-                                    'Schedule Your Appointment',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold
-                                       ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 10,),
-                              Text('Have an Appointment with your Mechanic to get\n                             your Vehicle fixed',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
-                            
+                              Center(
+                                child: Column(children: [Text(
+                                      'Schedule An Appointment',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold
+                                         ),
+                                    ),
+                                 
+                             
+                             
+                                Text('Search for the best mechanics in your location',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.white),)],),
+                              )
                             ],
                           ),
                           Column(
@@ -182,30 +173,34 @@ class _setupState extends State<setup> {
                               ),
                             
                               
-                              Padding(
-                                padding: const EdgeInsets.only(top: 10, left: 20),
-                                child: Center(
-                                  child: Text(
-                                    'Get Your Vehicle Towed',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold
-                                       ),
-                                  ),
-                                ),
+                             Center(
+                                child: Column(children: [Text(
+                                      'Tow Your Vehicle',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold
+                                         ),
+                                    ),
+                                 
+                             
+                             
+                                Text('Search for the best mechanics in your location',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.white),)],),
+                             
                               ),
-                              Text('A feature for you to get a towing car to tow your\n                              damaged vehicle',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),)
+                               
                             ],
                           ),
+                        
                         ],
                       )),
+                    
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: _buildPageIndicator(),
                   ),
                  SizedBox(
-                    height:10,
+                    height:70,
                   ),
                  Container(
                     height: 50,
@@ -213,7 +208,7 @@ class _setupState extends State<setup> {
                     child: TextButton(
                         style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(Colors.black),
+                                MaterialStateProperty.all(Color.fromARGB(209, 255, 193, 7)),
                             shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15)))),
@@ -223,7 +218,7 @@ class _setupState extends State<setup> {
                           builder: (context) => DriverSignUp(),
                         ));},
                         child: Text('Create An Account',
-                            style: TextStyle(color: Colors.white,fontSize: 15))),
+                            style: TextStyle(color: Colors.white,fontSize: 18))),
                   ),
                   
         
