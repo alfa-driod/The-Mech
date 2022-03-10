@@ -1,22 +1,23 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:the_mechanic/AnnimatedIcon.dart';
-import 'package:the_mechanic/screens/autoshop_profile.dart';
+import 'package:the_mechanic/Assistance/Assismethods.dart';
+import 'package:the_mechanic/form_field.dart';
 import 'package:the_mechanic/screens/driver_log_in.dart';
-import 'package:the_mechanic/screens/setup.dart';
+import 'package:the_mechanic/screens/liststyle.dart';
 import 'package:the_mechanic/screens/user_profile.dart';
-import 'package:the_mechanic/services.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
-import 'package:community_material_icon/community_material_icon.dart';
+import 'package:the_mechanic/Uploadimage.dart';
 
 class Hompege extends StatefulWidget {
   const Hompege({Key? key}) : super(key: key);
@@ -32,8 +33,10 @@ class _HompegeState extends State<Hompege> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   var geolacator = Geolocator();
   bool isMapCreated = false;
-  late PickedFile _imagefile;
+  PickedFile? _imageFile;
   final ImagePicker _picker = ImagePicker();
+  final uploadController = UploadControllerImpl();
+
   double bottompadding = 0;
   double toppadding = 0;
 
@@ -46,6 +49,8 @@ class _HompegeState extends State<Hompege> {
         new CameraPosition(target: latLatPosition, zoom: 14);
     newGoogleMapController
         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    var address = await AssisMethods.searchCordinates(position);
+    print("this is your address::" + address);
   }
 
   static final CameraPosition _kGooglePlex = CameraPosition(
@@ -100,14 +105,27 @@ class _HompegeState extends State<Hompege> {
                   height: 20,
                 ),
                 Stack(children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 60,
-                    child: Icon(
-                      Icons.person,
-                      size: 50,
-                    ),
-                  ),
+                  _imageFile == null
+                      ? CircleAvatar(
+                          backgroundColor: Colors.blueGrey,
+                          child: Icon(
+                            Icons.person,
+                            size: 30,
+                          ),
+                          radius: 60,
+                        )
+                      : CircleAvatar(
+                          radius: 60.0,
+                          backgroundColor: Colors.blueGrey,
+                          child: ClipOval(
+                            child: Image.file(
+                              File(_imageFile!.path),
+                              fit: BoxFit.fitWidth,
+                              width: 160.0,
+                              height: 160.0,
+                            ),
+                          ),
+                        ),
                   Positioned(
                       bottom: 10,
                       right: 13,
@@ -117,7 +135,11 @@ class _HompegeState extends State<Hompege> {
                                 context: context,
                                 builder: ((builder) => bottomSheet()));
                           },
-                          child: Icon(Icons.camera_alt)))
+                          child: Icon(
+                            Icons.camera_alt,
+                            color: Colors.white,
+                            size: 30,
+                          )))
                 ]),
                 SizedBox(
                   height: 10,
@@ -211,7 +233,7 @@ class _HompegeState extends State<Hompege> {
                 onTap: () {},
                 child: Row(
                   children: [
-                    Icon(Icons.call, color: Colors.grey),
+                    Icon(Icons.call, color: Colors.green),
                     Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: Text(
@@ -227,14 +249,14 @@ class _HompegeState extends State<Hompege> {
               color: Colors.grey,
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 200.0, left: 170),
+              padding: const EdgeInsets.only(top: 180.0, left: 10),
               child: InkWell(
                 onTap: () {
                   signOut(context);
                 },
                 child: Row(
                   children: [
-                    Icon(Icons.logout, color: Colors.blueGrey),
+                    Icon(Icons.logout, color: Colors.amberAccent),
                     Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: Text(
@@ -296,14 +318,87 @@ class _HompegeState extends State<Hompege> {
 
   Widget _slidingPage() {
     return Container(
-      color: Color.fromARGB(249, 2, 29, 37),
-      
-      child:ListView(
-        children: [
-          
-        ],
+      color: Colors.black,
+      child: SafeArea(
+        child: ListView(
+          children: [
+            Formfield(),
+            Mylistile(
+              image: 'media/img/b.jpg',
+              name: 'Bosch',
+              location: 'kasoa',
+              value: 3,
+              state: 'opened',
+              opened: true,
+            ),
+            Mylistile(
+              image: 'media/img/fuel.jpg',
+              name: 'Fuel-IT ENT',
+              location: 'Mallam-Juntion',
+              value: 4,
+              state: 'opened',
+              opened: true,
+            ),
+            Mylistile(
+              image: 'media/img/hh.jpeg',
+              name: 'Wrench-Bender',
+              location: 'East-Legon',
+              value: 5,
+              state: 'closed',
+              opened: false,
+            ),
+            Mylistile(
+              image: 'media/img/sage.png',
+              name: 'Sage Auto',
+              location: 'East-Legon',
+              value: 3,
+              state: 'closed',
+              opened: false,
+            ),
+            Mylistile(
+              image: 'media/img/linear.jpg',
+              name: 'Linear ENT',
+              location: 'East-Legon',
+              value: 4,
+              state: 'closed',
+              opened: false,
+            ),
+            Mylistile(
+              image: 'media/img/rr.jpg',
+              name: 'Repair Shop',
+              location: 'East-Legon',
+              value: 5,
+              state: 'closed',
+              opened: false,
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  void takePhoto(ImageSource source) async {
+    final pickedFile = await _picker.pickImage(source: source);
+    if (pickedFile != null) {
+
+      final downloadUrl =
+          await uploadController.uploadFile(File(pickedFile.path), "Pictures");
+      if (downloadUrl != null) {
+        
+        final isAdded = await uploadController.addPost(downloadUrl);
+        if (isAdded) {
+          displayToastMessage("Picture has been added successfully", context);
+        }
+        else{
+          displayToastMessage("Picture not added", context);
+
+        }
+      }
+      else{
+        displayToastMessage("Upload failed", context);
+
+      }
+    }
   }
 
   Widget bottomSheet() {
@@ -327,17 +422,28 @@ class _HompegeState extends State<Hompege> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    takePhoto(ImageSource.camera);
+                  },
                   icon: Icon(Icons.camera),
                   label: Text("camera")),
               TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    takePhoto(ImageSource.gallery);
+                  },
                   icon: Icon(Icons.image),
                   label: Text("Gallery")),
             ],
           )
         ],
       ),
+    );
+  }
+
+  displayToastMessage(String message, BuildContext context) {
+    Fluttertoast.showToast(
+      msg: message,
+      timeInSecForIosWeb: 5,
     );
   }
 }

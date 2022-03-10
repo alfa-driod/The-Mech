@@ -27,17 +27,19 @@ class _splashState extends State<splash> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: Image.asset('media/img/Group 3.png',height: 500,),
-          ),
+      body: Container(
        
-          // CircularProgressIndicator(
-          //   valueColor: AlwaysStoppedAnimation(Colors.amber),
-          // )
-        ],
+        height: double.infinity,
+        width: double.infinity,
+        
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('media/img/bma.jpg'),
+                colorFilter: ColorFilter.mode(Color.fromARGB(134, 0, 0, 0), BlendMode.darken),
+                fit: BoxFit.cover)),
+                child: Center(
+                  child: Image.asset('media/img/Group 3.png',width: 200,height: 200,),
+                ),
       ),
     );
   }

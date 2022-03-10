@@ -53,6 +53,11 @@ dependencies:
   flutter_sliding_up_panel: ^2.0.1
   sliding_up_panel: ^2.0.0+1
   community_material_icon: ^5.9.55
+  http: ^0.13.4
+  firebase_storage: ^10.2.9
+  cloud_firestore: ^3.1.8
+  rounded_loading_button: ^2.0.9
+  path: ^1.8.0
   
   
 dev_dependencies:
