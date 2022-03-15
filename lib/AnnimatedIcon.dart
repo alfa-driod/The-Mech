@@ -18,17 +18,17 @@ class _AnimatedSlideUpState extends State<AnimatedSlideUp>
   void initState() {
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 1000),
     );
 
-    _position = Tween<double>(begin: 20, end: 30).animate(
-      CurvedAnimation(parent: _controller, curve: Interval(0, 1)),
+    _position = Tween<double>(begin: 0, end: 10).animate(
+      CurvedAnimation(parent: _controller, curve: const Interval(0, 1)),
     )..addListener(() {
         setState(() {});
       });
 
     _opacity = Tween<double>(begin: 1, end: 0).animate(
-      CurvedAnimation(parent: _controller, curve: Interval(.5, 1)),
+      CurvedAnimation(parent: _controller, curve: const Interval(.5, 1)),
     )..addListener(() {
         setState(() {});
       });
@@ -38,24 +38,32 @@ class _AnimatedSlideUpState extends State<AnimatedSlideUp>
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
-     Padding(
-       padding: const EdgeInsets.only(top:20.0),
-       child: Text('Slide Up For Nearby Autoshops',style: TextStyle(color: Colors.white),),
-     ),
+        Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: Text(
+            'Slide Up For Nearby Autoshops',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
         Padding(
           padding: EdgeInsets.only(bottom: _position.value),
           child: Opacity(
             opacity: _opacity.value,
-            
-            child:Icon(
-                Icons.horizontal_rule_rounded,
-                color: Colors.white,
-                size: 65,
-              ), 
+            child: Icon(
+              Icons.horizontal_rule_rounded,
+              color: Colors.white,
+              size: 65,
+            ),
           ),
         ),
       ],

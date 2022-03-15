@@ -10,6 +10,7 @@ import 'package:the_mechanic/main.dart';
 import 'package:the_mechanic/screens/Homepage.dart';
 import 'package:the_mechanic/screens/navi.dart';
 import 'driver_sign_up.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class login extends StatefulWidget {
   const login({Key? key}) : super(key: key);
@@ -22,6 +23,7 @@ class _loginState extends State<login> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailTextController = TextEditingController();
   TextEditingController passwordTextController = TextEditingController();
+  final _btnController = RoundedLoadingButtonController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,10 @@ class _loginState extends State<login> {
           key: _formKey,
           child: ListView(
             children: [
-              Image.asset('media/img/Group 3.png',height: 250,),
+              Image.asset('media/img/New White.png',height: 170,),
+              SizedBox(
+                height: 30,
+              ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
@@ -51,7 +56,7 @@ class _loginState extends State<login> {
                     }
                   },
                   decoration: InputDecoration(
-                    fillColor: Colors.white,
+                    fillColor: Colors.transparent,
                     filled: true,
                     hintText: 'Enter Email',
                     prefixIcon: Icon(Icons.email),
@@ -82,7 +87,7 @@ class _loginState extends State<login> {
                     }
                   },
                   decoration: InputDecoration(
-                    fillColor: Colors.white,
+                    fillColor: Colors.transparent,
                     filled: true,
                     hintText: 'Enter password',
                     prefixIcon: Icon(Icons.password),
@@ -103,28 +108,33 @@ class _loginState extends State<login> {
               ),
               Padding(
                 padding: EdgeInsets.all(20.0),
-                child: Container(
-                  height: 50,
-                  width: 300,
-                  child: TextButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Color.fromARGB(206, 255, 214, 64)),
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15)))),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          loginAndAuthenticateUser(context);
-                        }
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => Navi()));
-                      },
-                      child: Text('Login',
-                          style: TextStyle(color: Colors.white, fontSize: 20))),
-                ),
+           
+                          child:  RoundedLoadingButton(
+                  animateOnTap: true,
+                  child: Wrap(
+                    children: const [
+                      Text(
+                        'LOGIN',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black),
+                      )
+                    ],
+                  ),
+                  controller: _btnController,
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  color:  Color.fromARGB(255, 255, 214, 64),
+                  elevation: 1,
+                  onPressed: () async {
+                   if (_formKey.currentState!.validate()) {
+                       loginAndAuthenticateUser(context);
+                       
+                    } else {
+                      
+                      _btnController.reset();
+                    }
+                  }),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(65, 10, 0, 0),
@@ -153,15 +163,15 @@ class _loginState extends State<login> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   loginAndAuthenticateUser(BuildContext context) async {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Mydialog(message: "Logging in ........");
-        });
+    // showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return Mydialog(message: "Logging in ........");
+    //     });
     final User? firebaseUser = (await _firebaseAuth
             .signInWithEmailAndPassword(
-                email: emailTextController.text,
-                password: passwordTextController.text)
+                email: emailTextController.text.trim(),
+                password: passwordTextController.text.trim())
             .catchError((errMsg) {
                Navigator.pop(context);
       displayToastMessage("Error: " + errMsg.toString(), context);
@@ -172,8 +182,13 @@ class _loginState extends State<login> {
 
       usersRef.child(firebaseUser.uid).get().then((DataSnapshot snap) async {
         if (snap.value != null) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Navi()));
+        Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => Navi(),
+      ),
+      (route) => false,
+    );
           displayToastMessage("Account has been logged in successful", context);
         } else {
            Navigator.pop(context);

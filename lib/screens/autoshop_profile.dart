@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:flutter/rendering.dart';
+import 'package:the_mechanic/screens/bookings.dart';
+import 'package:the_mechanic/screens/chat_page.dart';
 import 'package:the_mechanic/services.dart';
-import 'package:squircle/squircle.dart';
 
 class AutoshopProfile extends StatefulWidget {
   const AutoshopProfile({Key? key}) : super(key: key);
@@ -12,7 +13,27 @@ class AutoshopProfile extends StatefulWidget {
 }
 
 class _AutoshopProfileState extends State<AutoshopProfile> {
-  bool isAdded = false;
+  bool isAppBarBg = false;
+  final ScrollController scrollController = ScrollController();
+
+  @override
+  void initState() {
+    scrollController.addListener(() {
+      if (scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        setState(() {
+          isAppBarBg = true;
+        });
+      } else {
+        setState(() {
+          isAppBarBg = false;
+        });
+      }
+    });
+    print('isAppBarBg: $isAppBarBg');
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,92 +42,105 @@ class _AutoshopProfileState extends State<AutoshopProfile> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
+          // title: Text(isAppBarBg ? 'AUTOSHOPZ' : ''),
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(
+            icon: const Icon(
               CupertinoIcons.arrow_left_circle_fill,
             ),
           ),
         ),
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               gradient: LinearGradient(
                   colors: [Colors.grey, Colors.black],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter)),
           child: ListView(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+              controller: scrollController,
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
               children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.093,
+                const SizedBox(
+                  height: kToolbarHeight + 25,
                 ),
-                Center(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Card(
-                        color: Colors.red,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(200),
-                            side: BorderSide(width: 2, color: Colors.white)),
-                        child: SizedBox(
-                          height: 50,
-                          width: 50,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: Text(
-                          'AUTOSHOPZ',
-                          style: TextStyle(fontSize: 25),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Center(
-                  child: Container(
-                    height: 150,
-                    width: 250,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('media/img/q7.png'),
-                      ),
-                      // color: Colors.red,
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: AssetImage('media/img/b.jpg'),
+                      radius: 50,
                     ),
-                  ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        'Bosh',
+                        style: TextStyle(fontSize: 25),
+                      ),
+                    ),
+                  ],
                 ),
-                Text(
+                const Text(
                   'Services',
                   style: TextStyle(
                     fontSize: 24,
                   ),
                 ),
-                ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: mech.length,
-                    itemBuilder: (context, index) {
-                      return Services(
-                        serves: mech[index],
-                      );
-                    }),
-                SizedBox(
+                Column(
+                  children: List.generate(
+                      mech.length,
+                      (index) => Column(
+                            children: [
+                              Services(
+                                serves: mech[index],
+                                position: index,
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              )
+                            ],
+                          )),
+                ),
+                const SizedBox(
                   height: 20,
                 ),
-                Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  color: Colors.blue,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Center(
-                        child: Text(
-                      'Contact Us',
-                      style: TextStyle(color: Colors.white, fontSize: 22),
-                    )),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ChatPage()));
+                  },
+                  child: const Text(
+                    'Contact Us',
+                    style: TextStyle(color: Colors.white, fontSize: 22),
                   ),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(8.0),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                  ),
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Bookings()));
+                  },
+                  child: const Text(
+                    'Book An Appointment',
+                    style: TextStyle(color: Colors.white, fontSize: 22),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(8.0),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                  ),
+                ),
+                const SizedBox(
+                  height: 25,
                 )
               ]),
         ));

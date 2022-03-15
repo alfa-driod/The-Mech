@@ -1,68 +1,61 @@
 import 'package:flutter/material.dart';
 
-class Services extends StatefulWidget {
+class Services extends StatelessWidget {
+  Services({Key? key, required this.serves, required this.position})
+      : super(key: key);
+
   final Library serves;
+  final int position;
 
-  const Services({Key? key, required this.serves}) : super(key: key);
+  final ValueNotifier<bool> _isAddedNotifier = ValueNotifier(false);
 
-  @override
-  State<Services> createState() => _ServicesState();
-}
-
-class _ServicesState extends State<Services> {
   @override
   Widget build(BuildContext context) {
-    bool isAdded = true;
-    Library serve = widget.serves;
+    Library serve = serves;
 
-    return Column(
-      children: [
-        Card(
-          elevation: 10,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-              side: BorderSide(color: Colors.white, width: 2)),
-          color: Colors.black,
-          child: SizedBox(
-            height: 70,
-            width: MediaQuery.of(context).size.width,
-            child: ListTile(
-              title: Text(
-                '${serve.name}',
-                style: TextStyle(color: Colors.white, fontSize: 22),
+    return Card(
+      elevation: 10,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+          side: const BorderSide(color: Colors.white, width: 2)),
+      color: Colors.black,
+      child: SizedBox(
+        height: 70,
+        width: MediaQuery.of(context).size.width,
+        child: ListTile(
+          title: Text(
+            serve.name,
+            style: const TextStyle(color: Colors.white, fontSize: 22),
+          ),
+          subtitle: Text(
+            '${serve.startTime} - ${serve.endTime}',
+            style: const TextStyle(color: Colors.white),
+          ),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                serve.startingPrice,
+                style: const TextStyle(color: Colors.white),
               ),
-              subtitle: Text(
-                '${serve.startTime} - ${serve.endTime}',
-                style: TextStyle(color: Colors.white),
-              ),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    '${serve.startingPrice}',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isAdded = !isAdded;
-                      });
-                    },
-                    icon: Icon(
-                      isAdded ? Icons.add_circle : Icons.check_circle,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+              ValueListenableBuilder<bool>(
+                  valueListenable: _isAddedNotifier,
+                  builder: (context, isAdded, child) {
+                    return IconButton(
+                      onPressed: () {
+                        _isAddedNotifier.value = !_isAddedNotifier.value;
+                      },
+                      icon: Icon(
+                        !isAdded ? Icons.add_circle : Icons.check_circle,
+                        color: !isAdded ? Colors.white : Colors.green,
+                        size: 30,
+                      ),
+                    );
+                  }),
+            ],
           ),
         ),
-        SizedBox(
-          height: 20,
-        ),
-      ],
+      ),
     );
   }
 }

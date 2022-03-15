@@ -62,7 +62,7 @@ class _StartPageState extends State<StartPage> {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => setup()));
+                        MaterialPageRoute(builder: (context) => Setup()));
                   },
                   child: Card(
                     shape: SquircleBorder(superRadius: 900),

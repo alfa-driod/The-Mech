@@ -31,6 +31,7 @@ class _HompegeState extends State<Hompege> {
   late GoogleMapController newGoogleMapController;
   late Position currentPosition;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  User? user = FirebaseAuth.instance.currentUser;
   var geolacator = Geolocator();
   bool isMapCreated = false;
   PickedFile? _imageFile;
@@ -53,8 +54,8 @@ class _HompegeState extends State<Hompege> {
     print("this is your address::" + address);
   }
 
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
+  static final CameraPosition _kGooglePlex = const CameraPosition(
+    target: const LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
   );
   changeMapMode() {
@@ -84,13 +85,14 @@ class _HompegeState extends State<Hompege> {
         backgroundColor: Colors.transparent,
         leading: Builder(
           builder: (context) => IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.menu,
               color: Colors.amber,
               size: 35,
             ),
             onPressed: () {
               Scaffold.of(context).openDrawer();
+          
             },
           ),
         ),
@@ -101,31 +103,31 @@ class _HompegeState extends State<Hompege> {
           children: [
             Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Stack(children: [
-                  _imageFile == null
-                      ? CircleAvatar(
-                          backgroundColor: Colors.blueGrey,
-                          child: Icon(
-                            Icons.person,
-                            size: 30,
-                          ),
-                          radius: 60,
-                        )
-                      : CircleAvatar(
-                          radius: 60.0,
-                          backgroundColor: Colors.blueGrey,
-                          child: ClipOval(
-                            child: Image.file(
-                              File(_imageFile!.path),
-                              fit: BoxFit.fitWidth,
-                              width: 160.0,
-                              height: 160.0,
+                  FutureBuilder<String>(
+                      future: uploadController.getProfile(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData || snapshot.data != null) {
+                          return ClipRRect(
+                            borderRadius: BorderRadius.circular(90),
+                            // child:
+                            child: Image.network(
+                              snapshot.data!,
+                              fit: BoxFit.cover,
+                              width: 120,
+                              height: 120,
                             ),
-                          ),
-                        ),
+                          );
+                        }
+
+                        return const CircleAvatar(
+                          backgroundColor: Colors.blueGrey,
+                          radius: 60,
+                        );
+                      }),
                   Positioned(
                       bottom: 10,
                       right: 13,
@@ -135,16 +137,16 @@ class _HompegeState extends State<Hompege> {
                                 context: context,
                                 builder: ((builder) => bottomSheet()));
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.camera_alt,
                             color: Colors.white,
                             size: 30,
                           )))
                 ]),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   'Prince Obeng Nkoah',
                   style: TextStyle(
                       fontSize: 20,
@@ -156,12 +158,12 @@ class _HompegeState extends State<Hompege> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => UserProfile()));
+                              builder: (context) => const UserProfile()));
                     },
-                    child: Text('Edit profile')),
+                    child: const Text('Edit profile')),
               ],
             ),
-            Divider(
+            const Divider(
               color: Colors.grey,
             ),
             Padding(
@@ -170,9 +172,9 @@ class _HompegeState extends State<Hompege> {
                 onTap: () {},
                 child: Row(
                   children: [
-                    Icon(Icons.add, color: Colors.white),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
+                    const Icon(Icons.add, color: Colors.white),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20.0),
                       child: Text(
                         'Add Car',
                         style: TextStyle(fontSize: 20, color: Colors.white),
@@ -182,7 +184,7 @@ class _HompegeState extends State<Hompege> {
                 ),
               ),
             ),
-            Divider(
+            const Divider(
               color: Colors.grey,
             ),
             Padding(
@@ -191,19 +193,20 @@ class _HompegeState extends State<Hompege> {
                 onTap: () {},
                 child: Row(
                   children: [
-                    Icon(Icons.lock, color: Colors.grey),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
+                    const Icon(Icons.lock, color: Colors.grey),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20.0),
                       child: Text(
                         'Privacy Policy',
-                        style: TextStyle(fontSize: 20, color: Colors.white),
+                        style:
+                            const TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     )
                   ],
                 ),
               ),
             ),
-            Divider(
+            const Divider(
               color: Colors.grey,
             ),
             Padding(
@@ -212,19 +215,20 @@ class _HompegeState extends State<Hompege> {
                 onTap: () {},
                 child: Row(
                   children: [
-                    Icon(Icons.question_answer, color: Colors.blueGrey),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
+                    const Icon(Icons.question_answer, color: Colors.blueGrey),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20.0),
                       child: Text(
                         'FAQ',
-                        style: TextStyle(fontSize: 20, color: Colors.white),
+                        style:
+                            const TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     )
                   ],
                 ),
               ),
             ),
-            Divider(
+            const Divider(
               color: Colors.grey,
             ),
             Padding(
@@ -233,9 +237,9 @@ class _HompegeState extends State<Hompege> {
                 onTap: () {},
                 child: Row(
                   children: [
-                    Icon(Icons.call, color: Colors.green),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
+                    const Icon(Icons.call, color: Colors.green),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20.0),
                       child: Text(
                         'Contact Us',
                         style: TextStyle(fontSize: 20, color: Colors.white),
@@ -245,7 +249,7 @@ class _HompegeState extends State<Hompege> {
                 ),
               ),
             ),
-            Divider(
+            const Divider(
               color: Colors.grey,
             ),
             Padding(
@@ -256,7 +260,7 @@ class _HompegeState extends State<Hompege> {
                 },
                 child: Row(
                   children: [
-                    Icon(Icons.logout, color: Colors.amberAccent),
+                    const Icon(Icons.logout, color: Colors.amberAccent),
                     Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: Text(
@@ -297,12 +301,12 @@ class _HompegeState extends State<Hompege> {
         panel: _slidingPage(),
         collapsed: Container(
           decoration: BoxDecoration(
-              color: Color.fromARGB(249, 2, 29, 37), borderRadius: radius),
+              color: const Color.fromARGB(249, 2, 29, 37),
+              borderRadius: radius),
           child: Column(
             children: [
-              AnimatedSlideUp(),
-              //  Text("Slide Up For Autoshops",style: TextStyle(color: Colors.white,fontSize: 12),),
-              //  Icon(Icons.keyboard_double_arrow_up,color: Colors.green,size: 60),
+              const AnimatedSlideUp(),
+               
             ],
           ),
           //  Text("hey there",style: TextStyle(color: Colors.white),)
@@ -313,7 +317,8 @@ class _HompegeState extends State<Hompege> {
 
   signOut(context) async {
     await _firebaseAuth.signOut();
-    Navigator.push(context, MaterialPageRoute(builder: (context) => login()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const login()));
   }
 
   Widget _slidingPage() {
@@ -380,23 +385,17 @@ class _HompegeState extends State<Hompege> {
   void takePhoto(ImageSource source) async {
     final pickedFile = await _picker.pickImage(source: source);
     if (pickedFile != null) {
-
       final downloadUrl =
           await uploadController.uploadFile(File(pickedFile.path), "Pictures");
       if (downloadUrl != null) {
-        
         final isAdded = await uploadController.addPost(downloadUrl);
         if (isAdded) {
           displayToastMessage("Picture has been added successfully", context);
-        }
-        else{
+        } else {
           displayToastMessage("Picture not added", context);
-
         }
-      }
-      else{
+      } else {
         displayToastMessage("Upload failed", context);
-
       }
     }
   }
@@ -405,17 +404,17 @@ class _HompegeState extends State<Hompege> {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 100,
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         horizontal: 20,
         vertical: 20,
       ),
       child: Column(
         children: [
-          Text(
+          const Text(
             "Choose a profile picture",
             style: TextStyle(fontSize: 20),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Row(
@@ -425,14 +424,14 @@ class _HompegeState extends State<Hompege> {
                   onPressed: () {
                     takePhoto(ImageSource.camera);
                   },
-                  icon: Icon(Icons.camera),
-                  label: Text("camera")),
+                  icon: const Icon(Icons.camera),
+                  label: const Text("camera")),
               TextButton.icon(
                   onPressed: () {
                     takePhoto(ImageSource.gallery);
                   },
-                  icon: Icon(Icons.image),
-                  label: Text("Gallery")),
+                  icon: const Icon(Icons.image),
+                  label: const Text("Gallery")),
             ],
           )
         ],

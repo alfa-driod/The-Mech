@@ -12,24 +12,7 @@ class PaymentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-          elevation: 0,
-          leading: Padding(
-              padding: const EdgeInsets.only(left: 15),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: CircleAvatar(
-                  backgroundColor: Colors.grey.withOpacity(0.4),
-                  child: Icon(
-                    Iconsax.arrow_left_2,
-                    color: Colors.black,
-                  ),
-                ),
-              )),
-        ),
+      
         body: ListView(
           padding: EdgeInsets.symmetric(horizontal: 6),
           children: [

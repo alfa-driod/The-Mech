@@ -1,25 +1,35 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:the_mechanic/screens/home_page.dart';
+import 'package:the_mechanic/screens/navi.dart';
 import 'package:the_mechanic/screens/setup.dart';
 import 'package:the_mechanic/screens/start_page.dart';
 
-class splash extends StatefulWidget {
-  const splash({Key? key}) : super(key: key);
+class Splash extends StatefulWidget {
+  const Splash({Key? key}) : super(key: key);
 
   @override
-  _splashState createState() => _splashState();
+  _SplashState createState() => _SplashState();
 }
 
-class _splashState extends State<splash> {
+class _SplashState extends State<Splash> {
+  final firebaseAuth = FirebaseAuth.instance;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-   
-    Timer(Duration(seconds: 3), () {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => setup()));
+
+    Timer(const Duration(seconds: 3), () {
+      firebaseAuth.authStateChanges().listen((event) {
+        if (event?.uid == null) {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const Setup()));
+        } else {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Navi()));
+        }
+      });
     });
   }
 
@@ -28,18 +38,20 @@ class _splashState extends State<splash> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Container(
-       
         height: double.infinity,
         width: double.infinity,
-        
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('media/img/bma.jpg'),
-                colorFilter: ColorFilter.mode(Color.fromARGB(134, 0, 0, 0), BlendMode.darken),
+                colorFilter: ColorFilter.mode(
+                    Color.fromARGB(134, 0, 0, 0), BlendMode.darken),
                 fit: BoxFit.cover)),
-                child: Center(
-                  child: Image.asset('media/img/Group 3.png',width: 200,height: 200,),
-                ),
+        child: Center(
+          child: Image.asset(
+            'media/img/New White.png',
+            width: 180,
+          ),
+        ),
       ),
     );
   }

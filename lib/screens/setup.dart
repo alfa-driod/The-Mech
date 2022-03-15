@@ -5,14 +5,14 @@ import 'package:squircle/squircle.dart';
 import 'package:the_mechanic/screens/driver_log_in.dart';
 import 'package:the_mechanic/screens/driver_sign_up.dart';
 
-class setup extends StatefulWidget {
-  const setup({Key? key}) : super(key: key);
+class Setup extends StatefulWidget {
+  const Setup({Key? key}) : super(key: key);
 
   @override
-  _setupState createState() => _setupState();
+  _SetupState createState() => _SetupState();
 }
 
-class _setupState extends State<setup> {
+class _SetupState extends State<Setup> {
   final int _numPages = 3;
   final PageController _pageController = PageController(initialPage: 0);
   int _currentPage = 0;

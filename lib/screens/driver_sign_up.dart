@@ -3,12 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:path/path.dart';
 import 'package:the_mechanic/dialog.dart';
 import 'package:the_mechanic/main.dart';
 import 'package:the_mechanic/screens/driver_log_in.dart';
 import 'package:the_mechanic/screens/navi.dart';
 import 'package:the_mechanic/screens/user_profile.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class DriverSignUp extends StatefulWidget {
   const DriverSignUp({Key? key}) : super(key: key);
@@ -22,23 +24,26 @@ class _DriverSignUpState extends State<DriverSignUp> {
   TextEditingController emailTextController = TextEditingController();
   TextEditingController passwordTextController = TextEditingController();
   TextEditingController usernameTextController = TextEditingController();
+  final _btnController = RoundedLoadingButtonController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:Colors.black,
+      backgroundColor: Colors.black,
       extendBodyBehindAppBar: true,
-     
       body: Container(
         // alignment: Alignment.center,
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
-              Image.asset('media/img/Group 3.png',height: 220,),
-              // SizedBox(
-              //   height: 170,
-              // ),
+              Image.asset(
+                'media/img/New White.png',
+                height: 170,
+              ),
+              SizedBox(
+                height: 20,
+              ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
@@ -58,16 +63,16 @@ class _DriverSignUpState extends State<DriverSignUp> {
                     }
                   },
                   decoration: InputDecoration(
-                    fillColor: Colors.white,
+                    fillColor: Colors.transparent,
                     filled: true,
                     hintText: 'Enter Email',
                     prefixIcon: Icon(Icons.email),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
-                        borderSide: BorderSide(color: Colors.blue)),
+                        borderSide: BorderSide(color: Colors.yellow)),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
-                        borderSide: const BorderSide(color: Colors.blue)),
+                        borderSide: const BorderSide(color: Colors.green)),
                     errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                         borderSide: BorderSide(color: Colors.red)),
@@ -90,7 +95,7 @@ class _DriverSignUpState extends State<DriverSignUp> {
                     }
                   },
                   decoration: InputDecoration(
-                    fillColor: Colors.white,
+                    fillColor: Colors.transparent,
                     filled: true,
                     hintText: 'Enter password',
                     prefixIcon: Icon(Icons.password),
@@ -123,7 +128,7 @@ class _DriverSignUpState extends State<DriverSignUp> {
                     }
                   },
                   decoration: InputDecoration(
-                    fillColor: Colors.white,
+                    fillColor: Colors.transparent,
                     filled: true,
                     hintText: 'User Name',
                     prefixIcon: Icon(Icons.person),
@@ -144,24 +149,30 @@ class _DriverSignUpState extends State<DriverSignUp> {
               ),
               Padding(
                 padding: EdgeInsets.all(20.0),
-                child: Container(
-                  height: 50,
-                  width: 200,
-                  child: TextButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Color.fromARGB(206, 255, 214, 64)),
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15)))),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          registerNewUser(context);
-                        } else {}
-                      },
-                      child: Text('Sign up',
-                          style: TextStyle(color: Colors.white, fontSize: 30))),
-                ),
+                child: RoundedLoadingButton(
+                    animateOnTap: true,
+                    child: Wrap(
+                      children: const [
+                        Text(
+                          'SIGN UP',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black),
+                        )
+                      ],
+                    ),
+                    controller: _btnController,
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    color: Color.fromARGB(255, 255, 214, 64),
+                    elevation: 1,
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        registerNewUser(context);
+                      } else {
+                        _btnController.reset();
+                      }
+                    }),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(65, 10, 0, 0),
@@ -212,15 +223,15 @@ class _DriverSignUpState extends State<DriverSignUp> {
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   registerNewUser(BuildContext context) async {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Mydialog(message: "Signing in ");
-        });
+    // showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       // return Mydialog(message: "Signing in ");
+    //     });
     final User? firebaseUser = (await _firebaseAuth
             .createUserWithEmailAndPassword(
-                email: emailTextController.text,
-                password: passwordTextController.text)
+                email: emailTextController.text.trim(),
+                password: passwordTextController.text.trim())
             .catchError((errMsg) {
       Navigator.pop(context);
       displayToastMessage("Error: " + errMsg.toString(), context);
@@ -233,19 +244,22 @@ class _DriverSignUpState extends State<DriverSignUp> {
         "email": emailTextController.text,
         "password": passwordTextController.text,
         "username": usernameTextController.text,
+        "ImageUrl": ""
       };
       usersRef.child(firebaseUser.uid).set(UserDataMap);
       displayToastMessage("Account has been created successful", context);
-
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Navi()));
     } else {
-       Navigator.pop(context);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Navi()));
+
+      Navigator.pop(context);
       displayToastMessage("Account has not been created.Try Again", context);
     }
   }
 
   displayToastMessage(String message, BuildContext context) {
-    Fluttertoast.showToast(msg: message, timeInSecForIosWeb: 5,);
+    Fluttertoast.showToast(
+      msg: message,
+      timeInSecForIosWeb: 5,
+    );
   }
 }

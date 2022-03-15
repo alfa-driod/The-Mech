@@ -1,17 +1,20 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:the_mechanic/main.dart';
 
 abstract class UploadController {
   Future<String?> uploadFile(File file, String folderName);
   Future<bool> addPost(String imgUrl);
+  Future<String> getProfile();
 }
 
 class UploadControllerImpl implements UploadController {
   final FirebaseStorage storage = FirebaseStorage.instance;
   final FirebaseAuth mAuth = FirebaseAuth.instance;
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Future<String?> uploadFile(File file, String folderName) async {
@@ -30,13 +33,29 @@ class UploadControllerImpl implements UploadController {
   @override
   Future<bool> addPost(String imgUrl) async {
     try {
-      await usersRef.update({
-        "img_url": imgUrl,
-        "user_id": mAuth.currentUser!.uid
-      });
+      var UserDataMap = {"ImageUrl": imgUrl};
+
+      usersRef.child(user!.uid).update(UserDataMap);
       return true;
     } catch (e) {
       return false;
     }
+  }
+
+  @override
+  Future<String> getProfile() async {
+    DatabaseReference usersRef =
+        FirebaseDatabase.instance.ref().child("users").child(user!.uid);
+
+    final imgSnapshot = await usersRef.child("ImageUrl").get();
+    print(imgSnapshot.value);
+    return imgSnapshot.value as String;
+    // usersRef.once().then((DataSnapshot snapshot)){
+
+    // });
+    // usersRef.onValue.listen((DatabaseEvent event) {
+    //   final data = event.snapshot.value;
+
+    // });
   }
 }
