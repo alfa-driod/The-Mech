@@ -19,8 +19,8 @@ class _FormfieldState extends State<Formfield> {
       padding: const EdgeInsets.all(10.0),
       child: TextFormField(
         decoration: InputDecoration(
-          fillColor: Colors.white,
-          filled: true,
+          fillColor: Colors.transparent,
+ 
           prefixIcon: Icon(Icons.search),
           hintText: 'Search For Autoshops',
           border: OutlineInputBorder(

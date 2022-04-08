@@ -61,6 +61,12 @@ dependencies:
   syncfusion_flutter_calendar: ^19.4.55
   provider: ^6.0.2
   intl: ^0.17.0
+  country_code_picker: ^2.0.2
+  flutterwave: ^1.0.1
+  carousel_slider: ^4.0.0
+  flutter_svg: ^1.0.3
+  
+
   
   
 dev_dependencies:
@@ -90,7 +96,9 @@ flutter:
     - media/img/
     - media/img/auto.png
     - media/custom-icons/
+    - media/iconspng/
     - media/
+
     
 
 

@@ -92,7 +92,6 @@ class _HompegeState extends State<Hompege> {
             ),
             onPressed: () {
               Scaffold.of(context).openDrawer();
-          
             },
           ),
         ),
@@ -115,7 +114,7 @@ class _HompegeState extends State<Hompege> {
                             borderRadius: BorderRadius.circular(90),
                             // child:
                             child: Image.network(
-                              snapshot.data!,
+                              snapshot.data!, 
                               fit: BoxFit.cover,
                               width: 120,
                               height: 120,
@@ -146,13 +145,20 @@ class _HompegeState extends State<Hompege> {
                 const SizedBox(
                   height: 10,
                 ),
-                const Text(
-                  'Prince Obeng Nkoah',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white),
-                ),
+                FutureBuilder<String>(
+                    future: uploadController.getName(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData || snapshot.data != null) {
+                        return Text(
+                          snapshot.data!,
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white),
+                        );
+                      }
+                      return Text("Add name");
+                    }),
                 TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -306,7 +312,6 @@ class _HompegeState extends State<Hompege> {
           child: Column(
             children: [
               const AnimatedSlideUp(),
-               
             ],
           ),
           //  Text("hey there",style: TextStyle(color: Colors.white),)

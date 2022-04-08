@@ -9,6 +9,7 @@ abstract class UploadController {
   Future<String?> uploadFile(File file, String folderName);
   Future<bool> addPost(String imgUrl);
   Future<String> getProfile();
+  Future<String> getName();
 }
 
 class UploadControllerImpl implements UploadController {
@@ -49,7 +50,7 @@ class UploadControllerImpl implements UploadController {
 
     final imgSnapshot = await usersRef.child("ImageUrl").get();
     print(imgSnapshot.value);
-    return imgSnapshot.value as String;
+    return imgSnapshot.value! as String;
     // usersRef.once().then((DataSnapshot snapshot)){
 
     // });
@@ -57,5 +58,15 @@ class UploadControllerImpl implements UploadController {
     //   final data = event.snapshot.value;
 
     // });
+  }
+
+  @override
+  Future<String> getName() async {
+    DatabaseReference usersRef =
+        FirebaseDatabase.instance.ref().child("users").child(user!.uid);
+
+    final imgSnapshot = await usersRef.child("username").get();
+    print(imgSnapshot.value);
+    return imgSnapshot.value! as String;
   }
 }

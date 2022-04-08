@@ -244,7 +244,7 @@ class _DriverSignUpState extends State<DriverSignUp> {
         "email": emailTextController.text,
         "password": passwordTextController.text,
         "username": usernameTextController.text,
-        "ImageUrl": ""
+        "ImageUrl": "https://faxpulse.com/wp-content/uploads/2017/10/FP_Icon_G.png"
       };
       usersRef.child(firebaseUser.uid).set(UserDataMap);
       displayToastMessage("Account has been created successful", context);

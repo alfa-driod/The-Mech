@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cupertino_icons/cupertino_icons.dart';
 import 'package:the_mechanic/mech.dart';
+import 'package:the_mechanic/screens/Appointments.dart';
 import 'package:the_mechanic/screens/Homepage.dart';
 import 'package:the_mechanic/screens/bookings.dart';
 import 'package:the_mechanic/screens/driver_log_in.dart';
 import 'package:the_mechanic/screens/driver_sign_up.dart';
+import 'package:the_mechanic/screens/home.dart';
 import 'package:the_mechanic/screens/home_page.dart';
 import 'package:the_mechanic/screens/payment_page.dart';
 import 'package:the_mechanic/screens/setup.dart';
@@ -21,7 +23,7 @@ class _NaviState extends State<Navi> {
   List pages = [
     Hompege(),
     Mechanic(),
-    Bookings(),
+    Home(),
     PaymentPage(),
   ];
   int curreentIndex = 0;
@@ -52,7 +54,7 @@ class _NaviState extends State<Navi> {
                 label: 'Autoparts',
                 icon: Icon(Icons.handyman,size: 30)),
             BottomNavigationBarItem(
-                label: 'Bookings', icon: Icon(CupertinoIcons.calendar_badge_minus,size: 30)),
+                label: 'Appointments', icon: Icon(Icons.calendar_month_sharp,size: 30)),
             BottomNavigationBarItem(
                 label: 'Payment', icon: Icon(CupertinoIcons.creditcard_fill,size: 30)),
           ]),

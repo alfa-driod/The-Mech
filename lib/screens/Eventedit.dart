@@ -1,6 +1,9 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:the_mechanic/main.dart';
 import 'package:the_mechanic/screens/event.dart';
 import 'package:the_mechanic/screens/util.dart';
 import 'eventprovi.dart';
@@ -17,6 +20,7 @@ class _EventeditState extends State<Eventedit> {
   late DateTime fromDate;
   late DateTime toDate;
   final titleController = TextEditingController();
+  final descriptionController = TextEditingController();
   final formkey = GlobalKey<FormState>();
   @override
   void initState() {
@@ -31,7 +35,7 @@ class _EventeditState extends State<Eventedit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(195, 255, 193, 7),
+        backgroundColor: Colors.transparent,
         leading: CloseButton(),
         actions: buildedit(),
       ),
@@ -43,8 +47,10 @@ class _EventeditState extends State<Eventedit> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormField(
+                maxLength: 10,
+            maxLengthEnforcement:MaxLengthEnforcement.enforced,
                 decoration: InputDecoration(
-                    border: UnderlineInputBorder(), hintText: "Add Text"),
+                    border: UnderlineInputBorder(), hintText: "What do you want to fix"),
                 style: TextStyle(fontSize: 24),
                 onFieldSubmitted: (_) {
                   saveForm();
@@ -108,7 +114,32 @@ class _EventeditState extends State<Eventedit> {
                     ),
                   ),
                 ],
-              )
+              ),
+           Padding(
+             padding: const EdgeInsets.all(15.0),
+             child: TextFormField(
+               maxLength: 30,
+            maxLengthEnforcement:MaxLengthEnforcement.enforced,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                    decoration:InputDecoration(
+                      
+                      hintText:"Describe The fault on you car",
+                       contentPadding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 10.0),
+                      border:OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12)
+                      ),
+                      fillColor:Colors.black,
+                      filled: true
+                    ),
+                     validator: (descriptioon) => descriptioon != null && descriptioon.isEmpty
+                      ? "Title Cannot be Empty"
+                      : null,
+                  controller: descriptionController,
+                  ),
+           ),
+         
+            
             ],
           ),
         ),
@@ -192,12 +223,12 @@ class _EventeditState extends State<Eventedit> {
   List<Widget> buildedit() => [
         ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
-              primary: Colors.green,
+              primary: Colors.amber,
               shadowColor: Colors.transparent,
             ),
             onPressed: saveForm,
-            icon: Icon(Icons.done),
-            label: Text("save"))
+            icon: Icon(Icons.done,color: Colors.black,),
+            label: Text("save",style: TextStyle(color: Colors.black),))
       ];
   Future saveForm() async {
     final isValid = formkey.currentState!.validate();
@@ -207,9 +238,24 @@ class _EventeditState extends State<Eventedit> {
           from: fromDate,
           to: toDate,
           description: "Description");
-      final provider = Provider.of<Eventprovider>(context, listen: true);
+      addservices();
+      final provider = Provider.of<Eventprovider>(context, listen: false);
       provider.addEvent(event);
       Navigator.pop(context);
     }
+  }
+
+  Future<Map> addservices() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    DatabaseReference userRef =
+        FirebaseDatabase.instance.ref().child('users').child(user!.uid);
+    final add = await userRef.child('Appointments').set({
+      'title': titleController.text.trim(),
+      'start time': fromDate.toString(),
+      'end time': fromDate.toString(),
+      'Description': descriptionController.text.trim(),
+    });
+    print(add as Map);
+    return add as Map;
   }
 }

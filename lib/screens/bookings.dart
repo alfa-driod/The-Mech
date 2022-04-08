@@ -20,7 +20,7 @@ class Bookings extends StatelessWidget {
         backgroundColor: Colors.amber,
       ),
       appBar: AppBar(
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.transparent,
       ),
       body: CalenderWidget(),
     );
