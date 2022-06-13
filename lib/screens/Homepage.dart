@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -86,12 +87,12 @@ class _HompegeState extends State<Hompege> {
         leading: Builder(
           builder: (context) => IconButton(
             icon: const Icon(
-              Icons.menu,
+               CupertinoIcons.arrow_left_circle_fill,
               color: Colors.amber,
-              size: 35,
+              size: 30,
             ),
             onPressed: () {
-              Scaffold.of(context).openDrawer();
+              Navigator.pop(context);
             },
           ),
         ),
@@ -114,7 +115,7 @@ class _HompegeState extends State<Hompege> {
                             borderRadius: BorderRadius.circular(90),
                             // child:
                             child: Image.network(
-                              snapshot.data!, 
+                              snapshot.data!,
                               fit: BoxFit.cover,
                               width: 120,
                               height: 120,

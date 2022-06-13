@@ -13,17 +13,8 @@ class UserProfile extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              CupertinoIcons.arrow_left_circle_fill,
-            )),
-        actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.settings))
-        ],
+     
+       
       ),
       body: Container(
         decoration: BoxDecoration(

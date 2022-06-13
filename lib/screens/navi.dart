@@ -11,6 +11,7 @@ import 'package:the_mechanic/screens/home.dart';
 import 'package:the_mechanic/screens/home_page.dart';
 import 'package:the_mechanic/screens/payment_page.dart';
 import 'package:the_mechanic/screens/setup.dart';
+import 'package:the_mechanic/screens/user_profile.dart';
 
 class Navi extends StatefulWidget {
   const Navi({Key? key}) : super(key: key);
@@ -21,10 +22,10 @@ class Navi extends StatefulWidget {
 
 class _NaviState extends State<Navi> {
   List pages = [
-    Hompege(),
-    Mechanic(),
     Home(),
-    PaymentPage(),
+    Mechanic(),
+    Appointments(),
+    UserProfile(),
   ];
   int curreentIndex = 0;
   void onTap(int index) {
@@ -56,7 +57,7 @@ class _NaviState extends State<Navi> {
             BottomNavigationBarItem(
                 label: 'Appointments', icon: Icon(Icons.calendar_month_sharp,size: 30)),
             BottomNavigationBarItem(
-                label: 'Payment', icon: Icon(CupertinoIcons.creditcard_fill,size: 30)),
+                label: 'Profile', icon: Icon(CupertinoIcons.person_fill,size: 30,)),
           ]),
     );
   }
